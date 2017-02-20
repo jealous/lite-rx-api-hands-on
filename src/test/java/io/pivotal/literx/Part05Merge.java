@@ -15,11 +15,11 @@ import reactor.test.StepVerifier;
  */
 public class Part05Merge {
 
-	final static User MARIE = new User("mschrader", "Marie", "Schrader");
-	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
+	private final static User MARIE = new User("mschrader", "Marie", "Schrader");
+	private final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
 
-	ReactiveRepository<User> repository1 = new ReactiveUserRepository(500);
-	ReactiveRepository<User> repository2 = new ReactiveUserRepository(MARIE, MIKE);
+	private ReactiveRepository<User> repository1 = new ReactiveUserRepository(500);
+	private ReactiveRepository<User> repository2 = new ReactiveUserRepository(MARIE, MIKE);
 
 //========================================================================================
 
@@ -32,9 +32,8 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Merge flux1 and flux2 values with interleave
-	Flux<User> mergeFluxWithInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return null;
+	private Flux<User> mergeFluxWithInterleave(Flux<User> flux1, Flux<User> flux2) {
+		return flux1.mergeWith(flux2);
 	}
 
 //========================================================================================
@@ -48,9 +47,8 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Merge flux1 and flux2 values with no interleave (flux1 values and then flux2 values)
-	Flux<User> mergeFluxWithNoInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return null;
+	private Flux<User> mergeFluxWithNoInterleave(Flux<User> flux1, Flux<User> flux2) {
+		return flux1.concatWith(flux2);
 	}
 
 //========================================================================================
@@ -66,9 +64,8 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Create a Flux containing the value of mono1 then the value of mono2
-	Flux<User> createFluxFromMultipleMono(Mono<User> mono1, Mono<User> mono2) {
-		return null;
+	private Flux<User> createFluxFromMultipleMono(Mono<User> mono1, Mono<User> mono2) {
+		return mono1.concatWith(mono2);
 	}
 
 }
